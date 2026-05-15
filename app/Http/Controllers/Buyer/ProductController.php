@@ -21,6 +21,18 @@ class ProductController extends Controller
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
+        if ($request->min_price) {
+            $query->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->max_price) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        if ($request->condition) {
+            $query->where('condition', $request->condition);
+        }
+
         $products = $query->latest()->paginate(12);
         $categories = Category::all();
 
