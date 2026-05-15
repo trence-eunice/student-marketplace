@@ -6,6 +6,7 @@ use App\Http\Controllers\Seller\ProductController as SellerProductController;
 use App\Http\Controllers\Buyer\ProductController as BuyerProductController;
 use App\Http\Controllers\Buyer\CartController;
 use App\Http\Controllers\Buyer\OrderController;
+use App\Http\Controllers\Buyer\ReviewController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 Route::get('/', function () {
@@ -33,6 +34,7 @@ Route::middleware(['auth'])->prefix('buyer')->name('buyer.')->group(function () 
     Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
     Route::resource('orders', OrderController::class)->only(['index', 'store']);
     Route::patch('orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+    Route::post('products/{product}/review', [ReviewController::class, 'store'])->name('products.review');
 });
 
 // Admin Routes
