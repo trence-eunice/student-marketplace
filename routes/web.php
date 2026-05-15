@@ -32,6 +32,7 @@ Route::middleware(['auth'])->prefix('buyer')->name('buyer.')->group(function () 
     Route::resource('products', BuyerProductController::class)->only(['index', 'show']);
     Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
     Route::resource('orders', OrderController::class)->only(['index', 'store']);
+    Route::patch('orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 });
 
 // Admin Routes
