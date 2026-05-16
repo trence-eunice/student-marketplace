@@ -95,6 +95,7 @@
                 <a href="{{ route('buyer.products.index') }}" class="btn-primary px-6 py-2 rounded-lg font-semibold">Browse Products</a>
             </div>
             @endforelse
+
         </div>
     </div>
 </x-app-layout>
