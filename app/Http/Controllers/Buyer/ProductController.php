@@ -11,7 +11,10 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::where('status', 'active')->with('category');
+        $query = Product::where('status', 'active')
+            ->whereHas('user', fn($q) => $q->where('is_suspended', false))
+            ->where('stock', '>', 0)
+            ->with('category');
 
         if ($request->category) {
             $query->where('category_id', $request->category);
@@ -41,6 +44,12 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        // Block access to inactive or suspended seller's products
+        if ($product->status !== 'active' || $product->user->is_suspended) {
+            return redirect()->route('buyer.products.index')
+                ->with('error', 'This product is no longer available.');
+        }
+
         return view('buyer.products.show', compact('product'));
     }
 }
