@@ -22,7 +22,7 @@ class ReviewController extends Controller
 
         if ($existing) {
             return redirect()->route('buyer.products.show', $product)
-                ->with('error', 'You have already reviewed this product!');
+                ->with('review_error', 'You have already reviewed this product!');
         }
 
         Review::create([
@@ -33,6 +33,6 @@ class ReviewController extends Controller
         ]);
 
         return redirect()->route('buyer.products.show', $product)
-            ->with('success', 'Review submitted successfully!');
+            ->with('success', 'Review submitted successfully! ⭐');
     }
 }

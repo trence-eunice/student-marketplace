@@ -1,52 +1,64 @@
 <x-guest-layout>
+    <h1 class="guest-title">Create account</h1>
+    <p class="guest-subtitle">Join StudentMarket and start buying or selling.</p>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        <div style="margin-bottom:16px;">
+            <label class="guest-label">Full Name</label>
+            <input type="text" name="name" value="{{ old('name') }}"
+                class="guest-input" placeholder="Juan Dela Cruz" required autofocus autocomplete="name">
+            @error('name')
+                <p class="guest-error">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div style="margin-bottom:16px;">
+            <label class="guest-label">Email</label>
+            <input type="email" name="email" value="{{ old('email') }}"
+                class="guest-input" placeholder="you@school.edu" required autocomplete="username">
+            @error('email')
+                <p class="guest-error">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Role -->
-        <div class="mt-4">
-            <x-input-label for="role" :value="__('Register as')" />
-            <select id="role" name="role" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
-                <option value="buyer" {{ old('role') == 'buyer' ? 'selected' : '' }}>Buyer — I want to shop</option>
-                <option value="seller" {{ old('role') == 'seller' ? 'selected' : '' }}>Seller — I want to sell</option>
+        <div style="margin-bottom:16px;">
+            <label class="guest-label">Register as</label>
+            <select name="role" class="guest-input">
+                <option value="buyer" {{ old('role') == 'buyer' ? 'selected' : '' }}>🛍️ Buyer — I want to shop</option>
+                <option value="seller" {{ old('role') == 'seller' ? 'selected' : '' }}>📦 Seller — I want to sell</option>
             </select>
-            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+            @error('role')
+                <p class="guest-error">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div style="margin-bottom:16px;">
+            <label class="guest-label">Password</label>
+            <input type="password" name="password"
+                class="guest-input" placeholder="••••••••" required autocomplete="new-password">
+            @error('password')
+                <p class="guest-error">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div style="margin-bottom:24px;">
+            <label class="guest-label">Confirm Password</label>
+            <input type="password" name="password_confirmation"
+                class="guest-input" placeholder="••••••••" required autocomplete="new-password">
+            @error('password_confirmation')
+                <p class="guest-error">{{ $message }}</p>
+            @enderror
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+        <button type="submit" class="guest-btn">Create Account →</button>
+
+        <hr class="guest-divider">
+
+        <p style="text-align:center;font-size:13px;color:rgba(255,255,255,0.4);">
+            Already have an account?
+            <a href="{{ route('login') }}" class="guest-link" style="color:#E8FF5A;font-weight:500;">Log in</a>
+        </p>
     </form>
 </x-guest-layout>
